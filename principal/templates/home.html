@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extrahead %}
+	<title>Feria de la Ciudad</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+{% endblock %}
+
+{% block content %}
+	
+<style>
+	.body {
+	  width: 80%;
+	  margin: 0 auto;
+	  padding: 45px;
+	  text-align: justify;
+	}
+	h1, h2 {
+	  text-align: center;
+	}
+  </style>
+
+	<main>
+		<section id="destacados" class="container">
+			<h1 class="text-center">Desde la Portada hasta vuestro Corazon</h1>
+    	</section>
+		<section id="destacados" class="container" >
+			<h2 class="text-center"><strong>Elige tu caseta ideal en la Feria de Sevilla</strong></h2>
+			<div class="row d-flex align-items-center">
+				<div class="col-md-3 mx-auto">				  
+				</div>
+			</div> 
+		</section>
+		<body>
+			<p class="body">Este trabajo ha sido realizado por Diego Ruiz Gil y Francisco Javier Migueles como parte de la asignatura Complemento de Base de Datos. En este trabajo hemos investigado y recopilado información sobre la Feria de Sevilla, uno de los eventos más importantes de Andalucía.Además, hemos utilizado técnicas de base de datos de NoSQL para organizar, buscar y analizar la información recopilada, con el objetivo de obtener conocimientos y patrones de comportamiento de los asistentes a la feria.  Esperemos que le guste...</p>
+		</body>
+		<section id="destacados" class="container">	
+			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3037.817776979518!2d-3.776263684605762!3d40.46844156685741!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd422efeedfb88eb%3A0x87d2a2aef1e72d7c!2sParque%20De%20Los%20Pr%C3%ADncipes!5e0!3m2!1sen!2ses!4v1651213291423!5m2!1sen!2ses" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+			<img src="/static/imgs/feria.jpg" alt="Portada" width="500" height="300" style="margin-left: 2px;">
+		</section>
+
+	</main>
+	
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+{% endblock %}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% load static %}
+        <meta charset="utf-8" />
+        <title>{% block title %}Buscador Feria{% endblock %}</title>
+        {% block extrahead %}{% endblock %}
+
+        <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <h1 class="navbar-brand" href="#">Feria de Sevilla</h1>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/home">Inicio</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Buscador
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/buscador/titulo">Titulo</a>
+                                <a class="dropdown-item" href="/buscador/acceso">Acceso</a>
+                                <a class="dropdown-item" href="/buscador/calles">Calles</a>
+                            </div>
+                        </li>
+                      
+                        <li class="nav-item">
+                            <a class="nav-link" href="/posiciones">Red de Posicionamiento</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        {% block content %}
+            
+        {% endblock %}
+       
+        {% block extrabody %} {% endblock %}
+        <footer class="bg-dark text-light py-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>Feria de la Ciudad &copy; 2023</p>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list-inline text-right">
+                            <li class="list-inline-item"><a href="https://github.com/xiscomigueles">framigdom@alum.us.es</a></li>
+                            <li class="list-inline-item"><a href="https://github.com/DiegoRuizGil">dieruigil@alum.us.es</a></li>
+                            <li class="list-inline-item"><a href="https://www.informatica.us.es/">Universidad de sevilla</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    
+    
+    
+    </body>
+    
+</html>

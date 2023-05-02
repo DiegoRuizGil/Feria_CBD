@@ -1,0 +1,49 @@
+<div class="row mt-3 justify-content-center">
+    <nav>
+        <ul class="pagination">
+            {% if results.has_previous %}
+                <li class="page-item">
+                    <button class="page-link" href="?page=1" onclick="createForm(1)">Primera</button>
+                </li>
+                <li class="page-item">
+                    <button class="page-link" href="?page={{results.previous_page_number}}" onclick="createForm({{results.previous_page_number}})">&laquo;</button>
+                </li>
+            {% endif %}
+
+            {% for page in pages%}
+                <li class="page-item{% if current_page == page %} active {% endif %}">
+                    <button class="page-link" href="?page={{page}}" onclick="createForm({{page}})">{{page}}</button>
+                </li>
+            {% endfor%}
+
+            {% if results.has_next %}
+                <li class="page-item">
+                    <button class="page-link" href="?page={{results.next_page_number}}" onclick="createForm({{results.next_page_number}})">&raquo;</button>
+                </li>
+                <li class="page-item">
+                    <button class="page-link" href="?page={{results.paginator.num_pages}}" onclick="createForm({{results.paginator.num_pages}})">Última</button>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+
+<script>
+    let form = document.getElementById('formulario');
+
+    form.addEventListener('formdata', (e) => {
+        e.preventDefault();
+        console.log({{ results.paginator.num_pages }});
+    if (!e.formData.has('page')) e.formData.append('page', {{ results.paginator.num_pages }});
+    });
+
+    function createForm(newPage) {
+        let newForm = document.getElementById('formulario');
+        let pageInput = document.createElement('input');
+        pageInput.type = 'hidden';
+        pageInput.name = 'page';
+        pageInput.value = newPage;
+        newForm.appendChild(pageInput);
+        newForm.submit();
+    }
+</script>

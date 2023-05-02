@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extrahead %}
+	<title>Feria de la Ciudad</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <h1 class="text-center mb-4">Busca tu caseta por proximidad</h1>
+                <form id="formulario" method="get" action="#">
+                    <input type="hidden" name="punto" id="punto" value="">
+                    <input type="hidden" name="coords" id="coords" value="">
+                </form>
+                <canvas id="mapa-feria" width="537" height="366" style="border: 1px solid black;"></canvas>
+            </div>
+        </div>
+
+        {% if results %}
+
+            <div class="card-group">
+                {% for result in results%}
+                {% if forloop.counter0|divisibleby:4 %}
+                    <div class="w-100"></div> <!-- Agrega una nueva fila -->
+                {% endif %}
+                <div class="card">
+                    <!-- <img src="..." class="card-img-top" alt="pene"> -->
+                    <div class="card-body">
+                        <h5 class="card-title" id="card">{{result.titulo}}</h5>
+                        <p class="card-text"><b>DISTANCIA:</b> {{result.distance|floatformat:2}} m</p>
+                        <p class="card-text"><b>CALLE:</b> {{result.calle}}</p>
+                        <p class="card-text"><b>MODULO:</b> {{result.modulos}}</p>
+                        <p class="card-text"><b>NUMERO:</b> {{result.numero}}</p>
+                        <p class="card-text"><b>ACCESO:</b> {{result.acceso}}</p>
+                        <p class="card-text"><b>CAPACIDAD:</b> {{result.capacidad}}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+        {% endif %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+    <script>
+        const canvas = document.getElementById("mapa-feria");
+        const ctx = canvas.getContext("2d");
+        const form = document.querySelector("form");
+        const coordsInput = document.getElementById("coords");
+        const puntoInput = document.getElementById("punto");
+
+        let punto = [];
+      
+        canvas.addEventListener("click", function(event) {
+            const rect = canvas.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            const normalizedX = x / canvas.width;
+            const normalizedY = y / canvas.height;
+
+            punto = [x, y];
+            dibujarPunto();
+
+            const superiorX = -6.004223;
+            const superiorY = 37.367840;
+
+            const inferiorX = -5.997168;
+            const inferiorY = 37.371475;
+
+            const coordX = superiorX + normalizedX * (inferiorX - superiorX);
+            const coordY = superiorY + normalizedY * (inferiorY - superiorY);
+            
+            console.log(`Clic en (${coordX}, ${coordY})`);
+
+            puntoInput.value = `${x},${y}`;
+            coordsInput.value = `${coordX},${coordY}`;
+            form.submit();
+        });
+
+        function dibujarPunto() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // borra todo el canvas
+
+            ctx.fillStyle = "#ff0000";
+            ctx.fillRect(punto[0], punto[1], 5, 5);
+        }
+
+        window.addEventListener("load", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const puntoUrl = urlParams.get("punto");
+            if (puntoUrl) {
+                puntoInput.value = puntoUrl;
+                const x = parseFloat(puntoInput.value.split(",")[0]);
+                const y = parseFloat(puntoInput.value.split(",")[1]);
+
+                punto = [x, y];
+                dibujarPunto();
+            }
+        });
+    </script>
+
+{% endblock %}
